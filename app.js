@@ -2,6 +2,7 @@
 const express = require('express');
 const router = require('./router');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 // 创建服务器
 const app = express();
 //启动服务器
@@ -17,6 +18,29 @@ app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended:false}));
 // 后期你可能会传递json格式字符串
 app.use(bodyParser.json());
+
+
+// 添加session中间件
+app.use(session(
+   {
+      //加盐
+      secret:'my_albx_35',//相当于一个加密秘钥，值可以是任意字符
+      resave:false,//强制session保存到session store中，不管session有没有更新
+      saveUninitialized:false //强制将没有初始化的session保存到storage中
+   }
+))
+
+
+// 导航守卫
+// 添加全局中间件，所有的请求都会经过这个中间件
+app.use(function(req,res,next){
+   if(req.session.isLogin && req.session.isLogin === 'true' || req.url =='/admin/login' || req.url.indexOf('/admin') == -1){
+      next();
+   }else{
+      //重定向
+      res.redirect('/admin/login');
+   }
+})
 
 
 // 设置默认模板
