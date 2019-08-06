@@ -6,6 +6,7 @@ var router = express.Router();
 const pageController = require('./controller/pageController');
 // 引入返回用户操作数据的控制
 const userController = require('./controller/userController');
+const postsController = require('./controller/postsController');
 
 // 配置路由
 // 返回前台页面
@@ -27,5 +28,6 @@ router.get('/',pageController.getIndexPage)
       .get('/admin/users',pageController.getAdminUsersPage)
 // 返回用户操作的数据-业务处理路由
       .post('/login',userController.login)
+      .get('/getAllPosts',postsController.getAllPosts)
 
 module.exports = router;
