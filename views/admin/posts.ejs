@@ -14,18 +14,18 @@
         <!-- show when multiple checked -->
         <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
         <form class="form-inline">
-          <select name="" class="form-control input-sm">
-            <option value="">所有分类</option>
-            <option value="">未分类</option>
+          <select name="" class="form-control input-sm cateSelector">
+           
           </select>
-          <select name="" class="form-control input-sm">
-            <option value="">所有状态</option>
-            <option value="">草稿</option>
-            <option value="">已发布</option>
+          <select name="" class="form-control input-sm statusSelector">
+            <option value="all">所有状态</option>
+            <option value="drafted">草稿</option>
+            <option value="published">已发布</option>
           </select>
-          <button class="btn btn-default btn-sm">筛选</button>
+          <%# <button class="btn btn-default btn-sm btn-search">筛选</button> %>
+          <input type="button" class="btn btn-default btn-sm btn-search" value="筛选">
         </form>
-        <ul class="pagination pagination-sm pull-right">
+        <ul class="pagination pagination-sm pull-right" style='float:right'>
           <li><a href="#">上一页</a></li>
           <li><a href="#">1</a></li>
           <li><a href="#">2</a></li>
@@ -75,6 +75,6 @@
   {{ /each}}
 </script>
 
- 
+<script src="/assets/vendors/bootstrappaginator/bootstrap-paginator.min.js"></script>
 <script src="../../assets/vendors/template/template.js"></script>
 <script src="../../assets/js/posts.js"></script>

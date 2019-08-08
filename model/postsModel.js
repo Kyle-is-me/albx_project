@@ -9,14 +9,36 @@ exports.getAllPosts = (obj,callback)=>{
    FROM posts
    JOIN users on posts.user_id = users.id
    JOIN categories on posts.category_id = categories.id
-   ORDER BY id DESC
-   LIMIT ${(obj.pageNum-1)*obj.pageSize},${obj.pageSize}`;
+   where 1=1 `
+   
+   if(obj.cate && obj.cate != 'all'){
+      sql += ` and category_id = '${obj.cate}' `
+   }
+   if(obj.status && obj.status != 'all'){
+      sql += ` and posts.status = '${obj.status}'`
+   }
+   
+   sql +=  ` ORDER BY id DESC
+           LIMIT ${(obj.pageNum-1)*obj.pageSize},${obj.pageSize}`;
    // 2.执行sql语句，返回数据
    conn.query(sql,(err,result)=>{
       if(err){
          callback(err);
       }else{
-         callback(null,result)
+          // 获取数据总量
+          let sql = `SELECT count(*) as cnt
+          from posts 
+          JOIN users on posts.user_id = users.id
+          JOIN categories on posts.category_id = categories.id`;
+          conn.query(sql,(err2,res2)=>{
+             if(err2){
+                callback(err2)
+             }else{
+               //  没有错误，不仅要返回之前的查询记录，还要返回当前的查询的总记录数
+                callback(null,{data:result,total:res2[0].cnt})
+             }
+            //  console.log(res2)
+          })
       }
    })
 }

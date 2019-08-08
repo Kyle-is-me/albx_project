@@ -11,7 +11,6 @@ exports.login = (email,callback)=>{
          callback(err)
       }else{
          callback(null,results[0])
-         // console.log(result[0])
       }
    })
    // 返回操作结果
