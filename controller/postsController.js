@@ -21,3 +21,21 @@ exports.getAllPosts = (req,res)=>{
       }
    })
 }
+
+exports.addPost = (req,res)=>{
+   //获取数据
+   let obj = req.body;
+   // console.log(obj)
+   obj.views = 0
+   obj.likes = 0 
+   obj.user_id = req.session.currentUser.id
+   // 调用数据模块
+   postModel.addPost(obj,(err)=>{
+      if(err){
+         console.log(err)
+         res.json({code:400,msg:'failed to add'})
+      }else{
+         res.json({code:200,msg:'succeed to add'})
+      }
+   })
+}

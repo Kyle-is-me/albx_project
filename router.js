@@ -8,6 +8,7 @@ const pageController = require('./controller/pageController');
 const userController = require('./controller/userController');
 const postsController = require('./controller/postsController');
 const cateController = require('./controller/cateController')
+const uploadController = require('./controller/uploadController')
 
 // 配置路由
 // 返回前台页面
@@ -31,5 +32,11 @@ router.get('/',pageController.getIndexPage)
       .post('/login',userController.login)
       .get('/getAllPosts',postsController.getAllPosts)
       .get('/getAllCate',cateController.getAllCate)
+
+// 上传图片
+      .post('/uploadFile',uploadController.uploadFile)
+
+// 添加文章
+      .post('/addPost',postsController.addPost);
 
 module.exports = router;
