@@ -62,3 +62,27 @@ exports.addPost = (obj,callback)=>{
       }
    })
 }
+
+//根据id获取文章的方法
+exports.getPostById=(id,callback)=>{
+   let sql = 'select * from posts where id = ?';
+   conn.query(sql,id,(err,results)=>{
+      if(err){
+         callback(err)
+      }else{
+         callback(null,results[0])
+      }
+   })
+}
+
+// 根据id编辑文章
+exports.editPostById=(obj,callback)=>{
+   let sql = `update posts set ? where id=? `
+   conn.query(sql,[obj,obj.id],(err,results)=>{
+      if(err){
+         callback(err)
+      }else{
+         callback(null)
+      }
+   })
+}

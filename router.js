@@ -32,11 +32,14 @@ router.get('/',pageController.getIndexPage)
       .post('/login',userController.login)
       .get('/getAllPosts',postsController.getAllPosts)
       .get('/getAllCate',cateController.getAllCate)
+      // 添加文章
+      .post('/addPost',postsController.addPost)
+      .get('/getPostById',postsController.getPostById)
+      .post('/editPostById',postsController.editPostById)
+
 
 // 上传图片
       .post('/uploadFile',uploadController.uploadFile)
 
-// 添加文章
-      .post('/addPost',postsController.addPost);
 
 module.exports = router;

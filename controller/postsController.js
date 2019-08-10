@@ -21,11 +21,12 @@ exports.getAllPosts = (req,res)=>{
       }
    })
 }
-
+// 添加文章的方法
 exports.addPost = (req,res)=>{
    //获取数据
    let obj = req.body;
    // console.log(obj)
+   obj.id = null
    obj.views = 0
    obj.likes = 0 
    obj.user_id = req.session.currentUser.id
@@ -36,6 +37,33 @@ exports.addPost = (req,res)=>{
          res.json({code:400,msg:'failed to add'})
       }else{
          res.json({code:200,msg:'succeed to add'})
+      }
+   })
+}
+
+// 通过id获取文章的方法
+exports.getPostById=(req,res)=>{
+   let id = req.query.id
+   postModel.getPostById(id,(err,data)=>{
+      if(err){
+         res.json({code:400,msg:'failed to get post'})
+      }else{
+         // 设置日期的格式
+         data.created = moment(data.created).format('YYYY-MM-DDTHH:mm')
+         res.json({code:200,msg:'succeed to get post',data})
+      }
+   })
+}
+
+// 根据id编辑文章
+exports.editPostById=(req,res)=>{
+   let obj = req.body
+   postModel.editPostById(obj,(err)=>{
+      if(err){
+         console.log(err)
+         res.json({code:400,msg:'failed to edit post'})
+      }else{
+         res.json({code:200,msg:'succeed to edit post'})
       }
    })
 }

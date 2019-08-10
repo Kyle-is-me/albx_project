@@ -1,7 +1,7 @@
 $(()=>{
    // 定义全局的页码数和页数量
    var pageNum = 1;//当前页码
-   var pageSize = 2;//每页的数量
+   var pageSize = 3;//每页的数量
 
    function init(search){
       $.ajax({
@@ -76,5 +76,6 @@ $(()=>{
    })
 
 
+ 
 
 })
