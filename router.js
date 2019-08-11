@@ -37,6 +37,10 @@ router.get('/',pageController.getIndexPage)
       .get('/getPostById',postsController.getPostById)
       .post('/editPostById',postsController.editPostById)
       .get('/deletePostById',postsController.deletePostById)
+      
+      .post('/editCateById',cateController.editCateById)
+      .post('/addNewCate',cateController.addNewCate)
+      .get('/deleteCateById',cateController.deleteCateById)
 
 // 上传图片
       .post('/uploadFile',uploadController.uploadFile)

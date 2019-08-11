@@ -7,13 +7,14 @@
         <h1>分类目录</h1>
       </div>
       <!-- 有错误信息时展示 -->
-      <!-- <div class="alert alert-danger">
-        <strong>错误！</strong>发生XXX错误
-      </div> -->
+      <div class="alert alert-danger" hidden>
+        <strong>WARMING TIPS</strong>&nbsp;<span>发生XXX错误</span>
+      </div> 
       <div class="row">
         <div class="col-md-4">
           <form>
-            <h2>添加新分类目录</h2>
+            <input type="hidden" name="id" value="">
+            <h2 id="cateMenu">添加新分类目录</h2>
             <div class="form-group">
               <label for="name">名称</label>
               <input id="name" class="form-control" name="name" type="text" placeholder="分类名称">
@@ -24,7 +25,8 @@
               <p class="help-block">https://zce.me/category/<strong>slug</strong></p>
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">添加</button>
+              <input type="button" class="btn btn-primary btnAdd" value="添加">
+              <input type="button" class="btn btn-primary btnEdit" value="保存编辑" style="display:none">
             </div>
           </form>
         </div>
@@ -43,33 +45,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>未分类</td>
-                <td>uncategorized</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -80,4 +56,21 @@
   <%- include('./layouts/admin_aside.ejs'); %>
 
 <%- include('./layouts/admin_footer.ejs')%>
- 
+<script type="text/template" id="cateTemplate">
+  {{ each data as val index}}
+    <tr>
+              <td class="text-center"><input type="checkbox"></td>
+              <td>{{val.name}}</td>
+              <td>{{val.slug}}</td>
+              <td class="text-center">
+                  <a href="javascript:;" class="btn btn-info btn-xs btnEdit" data-id="{{val.id}}" data-name="{{val.name}}" data-slug="{{val.slug}}">编辑</a>
+                  <a href="javascript:;" class="btn btn-danger btn-xs btnDel" data-id="{{val.id}}">删除</a>
+                </td>
+              </tr>
+  {{ /each }}
+              
+</script>
+
+
+<script src="/assets/vendors/template/template.js"></script> 
+<script src="/assets/js/categories.js"></script>
