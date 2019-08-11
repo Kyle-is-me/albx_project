@@ -67,3 +67,21 @@ exports.editPostById=(req,res)=>{
       }
    })
 }
+
+//根据id删除文章
+exports.deletePostById = (req,res)=>{
+   // 获取id
+   let id = req.query.id
+   // 调用数据模块
+   postModel.deletePostById(id,(err)=>{
+      if(err){
+         console.log(err)
+         res.json({
+            code:400,
+            msg:'failed to delete'
+         })
+      }else{
+         res.json({code:200,msg:'succeed to delete'})
+      }
+   })
+}

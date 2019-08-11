@@ -86,3 +86,15 @@ exports.editPostById=(obj,callback)=>{
       }
    })
 }
+
+// 根据id删除文章的方法
+exports.deletePostById=(id,callback)=>{
+   let sql = `delete from posts where id = ?`;
+   conn.query(sql,id,(err,results)=>{
+      if(err){
+         callback(err)
+      }else{
+         callback(null)
+      }
+   })
+}

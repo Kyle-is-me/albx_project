@@ -75,7 +75,27 @@ $(()=>{
    
    })
 
-
+   //实现文章删除功能
+   $('tbody').on('click','.btnDel',function(){
+      
+      let id = $(this).data().id
+      // 删除确认
+      if(!confirm('确认删除吗')) return;
+      // 发送ajax请求
+      $.ajax({
+         type:'get',
+         url:'/deletePostById?id='+id,
+         success:function(res){
+            // console.log(res)
+            if(res.code === 200){
+               $('.alert-danger').fadeIn(500).delay(3000).fadeOut(500);
+               $('.alert-danger > span').text(res.msg)
+               // 刷新页面
+               init();
+            }
+         }
+      })
+   })
  
 
 })

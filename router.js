@@ -36,7 +36,7 @@ router.get('/',pageController.getIndexPage)
       .post('/addPost',postsController.addPost)
       .get('/getPostById',postsController.getPostById)
       .post('/editPostById',postsController.editPostById)
-
+      .get('/deletePostById',postsController.deletePostById)
 
 // 上传图片
       .post('/uploadFile',uploadController.uploadFile)
