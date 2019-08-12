@@ -133,6 +133,7 @@ $(() => {
             success: function (res) {
                if (res.code === 200) {
                   alert(res.msg)
+                  $('.btnDelBtc').hide()
                   init()
                } else {
                   $('alert-danger ').fadeIn(500).delay(3000).fadeOut(500);

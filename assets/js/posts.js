@@ -1,9 +1,8 @@
 $(()=>{
    // 定义全局的页码数和页数量
    var pageNum = 1;//当前页码
-   var pageSize = 1;//每页的数量
-   var currRow // 当前页有多少行
-
+   var pageSize = 3;//每页的数量
+   // var currRow // 当前页有多少行
    function init(search){
       $.ajax({
          type:'get',
@@ -15,17 +14,15 @@ $(()=>{
             ...search
          },
          success:function(result){
-            // console.log(result)
             if(result.code === 200){
                let html = template('posts_template',result.data);
                $('tbody').html(html);
                // 生成分页结构
                setPagenation(Math.ceil(result.data.total/pageSize));
-               currRow = $('.currRow').length
-               // console.log(currRow)
-               if(currRow==0){
-                  $('tbody').bootstrapPaginator('show',pageNum-1)
-               }
+               // currRow = $('.currRow').length
+               // if(currRow==1){
+               //    $('tbody').bootstrapPaginator('show',pageNum-1)
+               // }
             }
          }
       })

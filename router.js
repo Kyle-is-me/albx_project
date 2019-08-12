@@ -9,6 +9,7 @@ const userController = require('./controller/userController');
 const postsController = require('./controller/postsController');
 const cateController = require('./controller/cateController')
 const uploadController = require('./controller/uploadController')
+const optionsController = require('./controller/optionsController')
 
 // 配置路由
 // 返回前台页面
@@ -44,8 +45,12 @@ router.get('/',pageController.getIndexPage)
       .get('/deleteCateById',cateController.deleteCateById)
       .get('/deleteCateInBatchs',cateController.deleteCateInBatchs)
 
+      .get('/getMenu',optionsController.getMenu)
+      .post('/addMenu',optionsController.addMenu)
+      .get('/getSettings',optionsController.getSettings)
+      .post('/updateSettings',optionsController.updateSettings)
+
 // 上传图片
       .post('/uploadFile',uploadController.uploadFile)
-
 
 module.exports = router;
