@@ -42,9 +42,22 @@ exports.addNewCate=(req,res)=>{
 // 通过id删除分类目录
 exports.deleteCateById=(req,res)=>{
    let id = req.query.id
-   cateModel.deleteCateById(id,(err,data)=>{
+   cateModel.deleteCateById(id,(err)=>{
       if(err){
          // console.log(err)
+         res.json({code:400,msg:'failed to delete'})
+      }else{
+         res.json({code:200,msg:'succeed to delete'})
+      }
+   })
+}
+
+// 批量删除分类
+exports.deleteCateInBatchs=(req,res)=>{
+   let ids = req.query.id
+   cateModel.deleteCateInBatchs(ids,(err)=>{
+      if(err){
+         
          res.json({code:400,msg:'failed to delete'})
       }else{
          res.json({code:200,msg:'succeed to delete'})

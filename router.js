@@ -30,6 +30,7 @@ router.get('/',pageController.getIndexPage)
       .get('/admin/users',pageController.getAdminUsersPage)
 // 返回用户操作的数据-业务处理路由
       .post('/login',userController.login)
+      
       .get('/getAllPosts',postsController.getAllPosts)
       .get('/getAllCate',cateController.getAllCate)
       // 添加文章
@@ -37,10 +38,11 @@ router.get('/',pageController.getIndexPage)
       .get('/getPostById',postsController.getPostById)
       .post('/editPostById',postsController.editPostById)
       .get('/deletePostById',postsController.deletePostById)
-      
+
       .post('/editCateById',cateController.editCateById)
       .post('/addNewCate',cateController.addNewCate)
       .get('/deleteCateById',cateController.deleteCateById)
+      .get('/deleteCateInBatchs',cateController.deleteCateInBatchs)
 
 // 上传图片
       .post('/uploadFile',uploadController.uploadFile)

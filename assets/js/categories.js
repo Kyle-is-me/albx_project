@@ -36,10 +36,10 @@ $(() => {
       // let data =  $('form').serialize()
       // console.log(data)
       // 收集数据
-     opt('/editCateById')
+      opt('/editCateById')
    })
 
-   function opt(url){
+   function opt(url) {
       $.ajax({
          type: 'post',
          url: url,
@@ -52,6 +52,7 @@ $(() => {
                $('.btnEdit').hide()
                $('.btnAdd').show()
                $('#cateMenu').text('添加新分类目录')
+               $('[name="id"]').val('')
                $('#name').val('')
                $('#slug').val('')
             } else {
@@ -62,24 +63,24 @@ $(() => {
       })
    }
    // 实现分类的添加
-   $('.btnAdd').on('click',function(){
+   $('.btnAdd').on('click', function () {
       opt('/addNewCate')
    })
 
    //实现通过id删除分类--事件委托
-   $('tbody').on('click','.btnDel',function(){
+   $('tbody').on('click', '.btnDel', function () {
       let id = $(this).data().id
       // 确认删除
-      if(confirm('确认删除吗？')){
+      if (confirm('确认删除吗？')) {
          $.ajax({
-            type:'get',
-            url:'/deleteCateById?id='+id,
-            success:function(res){
+            type: 'get',
+            url: '/deleteCateById?id=' + id,
+            success: function (res) {
                console.log(res)
-               if(res.code===200){
+               if (res.code === 200) {
                   alert(res.msg)
                   init()
-               }else{
+               } else {
                   $('alert-danger ').fadeIn(500).delay(3000).fadeOut(500);
                   $('alert-danger > span').text(res.msg)
                }
@@ -88,4 +89,58 @@ $(() => {
       }
    })
 
+
+   // 实现批量删除
+   // 实现全选
+   $('.allChecked').on('click', function () {
+      let status = $(this).prop('checked');
+      // console.log(status)
+      $('tbody .chkSingle').prop('checked', status)
+      if (status) {
+         $('.btnDelBtc').show()
+      } else {
+         $('.btnDelBtc').hide()
+      }
+   })
+
+
+   // 实现全不选--事件委托
+   $('tbody').on('click', '.chkSingle', function () {
+      let isCheck = $('.chkSingle:checked').length;
+      let isALL = isCheck == $('.chkSingle').length;
+      $('.allChecked').prop('checked', isALL)
+      if (isCheck > 1) {
+         $('.btnDelBtc').show()
+      } else {
+         $('.btnDelBtc').hide()
+      }
+   })
+
+   // 实现批量删除
+   $('.btnDelBtc').on('click', function () {
+      // 确认删除
+      if (confirm('确认删除吗？')) {
+         let chks = $('tbody .chkSingle:checked')
+         let ids = [];
+         for (let i = 0; i < chks.length; i++) {
+            ids.push(chks[i].dataset['id'])
+         }
+         // alert(ids)
+         $.ajax({
+            type: 'get',
+            url: '/deleteCateInBatchs?id=' + ids.join(','),
+            dataType: 'json',
+            success: function (res) {
+               if (res.code === 200) {
+                  alert(res.msg)
+                  init()
+               } else {
+                  $('alert-danger ').fadeIn(500).delay(3000).fadeOut(500);
+                  $('alert-danger > span').text(res.msg)
+               }
+            }
+         })
+      }
+   })
 })
+

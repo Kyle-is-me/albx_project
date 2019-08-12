@@ -1,7 +1,8 @@
 $(()=>{
    // 定义全局的页码数和页数量
    var pageNum = 1;//当前页码
-   var pageSize = 3;//每页的数量
+   var pageSize = 1;//每页的数量
+   var currRow // 当前页有多少行
 
    function init(search){
       $.ajax({
@@ -20,6 +21,11 @@ $(()=>{
                $('tbody').html(html);
                // 生成分页结构
                setPagenation(Math.ceil(result.data.total/pageSize));
+               currRow = $('.currRow').length
+               // console.log(currRow)
+               if(currRow==0){
+                  $('tbody').bootstrapPaginator('show',pageNum-1)
+               }
             }
          }
       })
@@ -37,11 +43,11 @@ $(()=>{
          onPageClicked:function(event,originaEven,type,page){
             //page就是你当前想要获取数据的页码
             // 修改全局页码
-            console.log(type,page)
+            // console.log(type,page)
             pageNum = page;
             //重新调用加载数据的方法
             init();
-         }
+         },
       })
    }
 

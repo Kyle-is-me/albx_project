@@ -50,3 +50,15 @@ exports.deleteCateById=(id,callback)=>{
       }
    })
 }
+
+// 批量删除分类
+exports.deleteCateInBatchs=(ids,callback)=>{
+   let sql = `DELETE from categories where id in (${ids})`;
+   conn.query(sql,(err,results)=>{
+      if(err){
+         callback(err)
+      }else{
+         callback(null)
+      }
+   })
+}
